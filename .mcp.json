@@ -3,6 +3,17 @@
     "pond": {
       "type": "http",
       "url": "https://raspberrypi.tail8bd569.ts.net"
+    },
+    "nasa": {
+      "command": "npx",
+      "args": ["-y", "@programcomputer/nasa-mcp-server@latest"],
+      "env": {
+        "NASA_API_KEY": "${NASA_API_KEY}"
+      }
+    },
+    "weather": {
+      "command": "npx",
+      "args": ["open-meteo-mcp-server"]
     }
   }
 }
