@@ -2,9 +2,11 @@
 # A little Solitude at Pondside.
 
 [schedule]
-# When the night shift begins and ends (24-hour format, PST)
-night_start = "22:00"
-night_end = "04:00"
+# When the night shift begins and ends (hour in 24-hour format, PST)
+# Heartbeats will fire during these hours, inclusive.
+# Example: night_start = 22, night_end = 4 means 10 PM to 4 AM
+night_start = 22
+night_end = 4
 
 # Minutes between heartbeats
 interval_minutes = 15

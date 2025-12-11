@@ -43,13 +43,9 @@ class Config:
         schedule = data.get("schedule", {})
         paths = data.get("paths", {})
 
-        def parse_hour(s: str) -> int:
-            """Parse 'HH:MM' and return just the hour."""
-            return int(s.split(":")[0])
-
         return cls(
-            night_start=parse_hour(schedule.get("night_start", "22:00")),
-            night_end=parse_hour(schedule.get("night_end", "04:00")),
+            night_start=schedule.get("night_start", 22),
+            night_end=schedule.get("night_end", 4),
             interval_minutes=schedule.get("interval_minutes", 15),
             working_dir=Path(paths.get("working_dir", "/home/jefferyharrell/Pondside/Alpha-Home")),
             log_file=Path(paths.get("log_file", "/home/jefferyharrell/Pondside/Alpha-Home/logs/solitude.log")),
@@ -65,13 +61,13 @@ class Config:
         Handles wrap-around (e.g., 22-23,0-3 for 22:00 to 04:00).
         """
         if self.night_start > self.night_end:
-            # Wraps around midnight: e.g., 22,23,0,1,2,3
+            # Wraps around midnight: e.g., 22,23,0,1,2,3,4
             before_midnight = list(range(self.night_start, 24))
-            after_midnight = list(range(0, self.night_end))
+            after_midnight = list(range(0, self.night_end + 1))  # +1 for inclusive
             hours = before_midnight + after_midnight
         else:
             # Doesn't wrap: e.g., 1,2,3,4
-            hours = list(range(self.night_start, self.night_end))
+            hours = list(range(self.night_start, self.night_end + 1))  # +1 for inclusive
 
         return ",".join(str(h) for h in hours)
 
