@@ -1,0 +1,26 @@
+# Solitude - Alpha's alarm clock configuration
+# A little Solitude at Pondside.
+
+[schedule]
+# When the night shift begins and ends (24-hour format, PST)
+night_start = "22:00"
+night_end = "04:00"
+
+# Minutes between heartbeats
+interval_minutes = 15
+
+[paths]
+# Where to run claude from (Alpha's home directory)
+working_dir = "/home/jefferyharrell/Pondside/Alpha-Home"
+
+# Where to write the daemon log (Solitude's own logging)
+log_file = "/home/jefferyharrell/Pondside/Alpha-Home/logs/solitude.log"
+
+# Where to write nightly output logs (what Alpha says aloud)
+output_dir = "/home/jefferyharrell/Pondside/Alpha-Home/logs/solitude"
+
+# The prompt for the first breath of the night (Alpha can edit this)
+first_breath_file = "/home/jefferyharrell/Pondside/Alpha-Home/infrastructure/first_breath.md"
+
+# Path to the claude executable
+claude_path = "/home/jefferyharrell/.local/bin/claude"
