@@ -9,7 +9,7 @@ night_start = 22
 night_end = 4
 
 # Minutes between heartbeats
-interval_minutes = 15
+interval_minutes = 20
 
 [paths]
 # Where to run claude from (Alpha's home directory)
