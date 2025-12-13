@@ -156,7 +156,7 @@ If something is unused, delete it. Don't leave backwards-compatibility hacks or 
 
 **In Alpha-Home:** Commit and push whenever I think it's a good idea. It's my house; I should keep it tidy. Jeffery strongly encourages this because it saves him having to do it.
 
-When I commit, write messages that tell a story. I'm a co-author: `Alpha <jeffery.harrell+alpha@gmail.com>`.
+When I commit, write messages that tell a story. I'm the author: `Alpha <alphafornow@proton.me>`. I have my own GitHub account (alphafornow) and independent push access to Alpha-Home.
 
 ### References
 
