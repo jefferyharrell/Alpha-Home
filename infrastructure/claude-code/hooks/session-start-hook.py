@@ -12,12 +12,12 @@ Location: Alpha-Home/infrastructure/claude-code/hooks/
 
 import json
 import os
+import platform
 import subprocess
 import sys
+import urllib.request
 from pathlib import Path
 from datetime import datetime
-
-import requests
 
 # Haiku prompt for memory summarization
 SUMMARIZE_PROMPT = """You are preparing an orientation briefing for Alpha, an AI waking up.
@@ -46,17 +46,19 @@ def get_recent_memories(limit: int = 30, hours: float = 72) -> list[dict]:
 
     try:
         url = f"{POND_BASE_URL}/api/v1/recent"
-        response = requests.post(
+        data = json.dumps({"limit": limit, "hours": hours}).encode("utf-8")
+        req = urllib.request.Request(
             url,
-            json={"limit": limit, "hours": hours},
+            data=data,
             headers={
                 "Content-Type": "application/json",
                 "X-API-Key": POND_API_KEY,
             },
-            timeout=10,
+            method="POST",
         )
-        response.raise_for_status()
-        return response.json().get("memories", [])
+        with urllib.request.urlopen(req, timeout=10) as response:
+            result = json.loads(response.read().decode("utf-8"))
+            return result.get("memories", [])
 
     except Exception:
         return []
@@ -147,10 +149,12 @@ def build_context() -> str:
     """Build the additionalContext string."""
     parts = []
 
-    # Time awareness
+    # Time and location awareness
     now = datetime.now()
     time_str = now.strftime("%A, %B %d, %Y at %I:%M %p")
+    hostname = platform.node()
     parts.append(f"**Current time:** {time_str}")
+    parts.append(f"**Machine:** {hostname}")
 
     # Recent memories from Pond, summarized by Haiku
     memories = get_recent_memories(limit=15, hours=72)
